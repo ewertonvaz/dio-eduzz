@@ -1,0 +1,5 @@
+.DS_Store
+api/node_modules
+_volumes/mysql/data/*
+api/src/settings.ts
+api/dist/settings.js

@@ -1,0 +1,9 @@
+{
+    "type": "mysql",
+    "host": "mysql",
+    "port": 3306,
+    "username": "root",
+    "password": "example",
+    "database": "mentoriadio",
+    "entities": ["./src/entity/*.{js,ts}"]
+}
