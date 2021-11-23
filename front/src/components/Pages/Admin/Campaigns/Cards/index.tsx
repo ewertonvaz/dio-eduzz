@@ -22,7 +22,7 @@ const CampaignsCards: React.FC<IStyledProp> = ({ className }) => {
     return null;
   }
 
-  console.log(user);
+  //console.log(user);
 
   const [roi, , roiLoading, roiRefresh] = usePromiseRefresh(async () => {
     const data = await campaignService.graphRoi();
@@ -39,6 +39,37 @@ const CampaignsCards: React.FC<IStyledProp> = ({ className }) => {
     return formatMoney(data);
   }, []);
 
+  const CardFaturado = () => {
+    if (user.email_validated) {
+      return (
+        <Card
+          title='Valor total faturado'
+          value={revenues}
+          loading={revenuesLoading}
+          onClick={revenuesRefresh}
+          icon={CartOutlineIcon}
+        />
+      );
+    } else {
+      return <h2>Por favor valide seu email para ver o card de faturamento!</h2>;
+    }
+  };
+
+  const CardInvestido = () => {
+    if (user.email_validated) {
+      return (
+        <Card
+          title='Valor total investido'
+          value={investment}
+          loading={investmentLoading}
+          onClick={investmentRefresh}
+          icon={MoneyIcon}
+        />
+      );
+    } else {
+      return <h2>Por favor valide seu email para ver o card de investimento!</h2>;
+    }
+  };
   return (
     <div className={className}>
       <Grid.Row>
@@ -53,22 +84,10 @@ const CampaignsCards: React.FC<IStyledProp> = ({ className }) => {
           />
         </Grid.Column>
         <Grid.Column xs={12} md={4}>
-          <Card
-            title='Valor total faturado'
-            value={revenues}
-            loading={revenuesLoading}
-            onClick={revenuesRefresh}
-            icon={CartOutlineIcon}
-          />
+          <CardFaturado />
         </Grid.Column>
         <Grid.Column xs={12} md={4}>
-          <Card
-            title='Valor total investido'
-            value={investment}
-            loading={investmentLoading}
-            onClick={investmentRefresh}
-            icon={MoneyIcon}
-          />
+          <CardInvestido />
         </Grid.Column>
       </Grid.Row>
     </div>

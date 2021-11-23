@@ -21,7 +21,7 @@ Copiar / renomear o arquivo **api\src\settings.example.ts** para **api\src\setti
 Usar o shell na pasta  **\api**  e executar os comandos:
 
 ```
-yarn start
+yarn install
 yarn build
 ```
 

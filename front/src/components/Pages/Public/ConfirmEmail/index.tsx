@@ -27,7 +27,7 @@ const ConfirmEmailPage = () => {
 
   const validated = validateToken();
   console.log(validated);
-  return <Redirect to='/' />;
+  return <Redirect to='/login' />;
 };
 
 export default styled(ConfirmEmailPage)`
