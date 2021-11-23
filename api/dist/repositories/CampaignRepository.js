@@ -35,12 +35,15 @@ let CampaignRepository = class CampaignRepository extends typeorm_1.Repository {
         });
         this.createCampaign = (data) => __awaiter(this, void 0, void 0, function* () {
             const campaign = this.create();
+            const source = yield this.getSourceFromName(String(data.source));
+            console.log(source);
             campaign.beginDate = data.beginDate;
             campaign.endDate = data.endDate;
             campaign.investment = data.investment;
+            campaign.revenues = data.revenues;
             campaign.link = data.link;
             campaign.name = data.name;
-            campaign.source_id = 1;
+            campaign.source_id = source.id;
             campaign.user_id = data.user_id;
             return this.save(campaign);
         });
@@ -53,6 +56,7 @@ let CampaignRepository = class CampaignRepository extends typeorm_1.Repository {
     updateCampaign(id, data) {
         return __awaiter(this, void 0, void 0, function* () {
             const campaign = yield this.findOne(id);
+            const source = yield this.getSourceFromName(String(data.source));
             if (!campaign)
                 throw new NotFoundException_1.NotFoundException('Campanha não encontrada');
             campaign.beginDate = data.beginDate;
@@ -61,7 +65,7 @@ let CampaignRepository = class CampaignRepository extends typeorm_1.Repository {
             campaign.revenues = data.revenues;
             campaign.link = data.link;
             campaign.name = data.name;
-            campaign.source_id = 1;
+            campaign.source_id = source.id;
             return yield this.save(campaign);
         });
     }
@@ -91,6 +95,15 @@ let CampaignRepository = class CampaignRepository extends typeorm_1.Repository {
               WHERE user_id = ?`, [userId]);
             const row = rawData[0];
             return Number(row.revenues);
+        });
+    }
+    getSourceFromName(name) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const manager = (0, typeorm_1.getManager)();
+            const rawData = yield manager.query(`
+            SELECT * FROM source
+              WHERE name = ?`, [name]);
+            return rawData[0];
         });
     }
 };

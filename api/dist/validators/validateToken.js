@@ -49,7 +49,7 @@ const validateToken = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         }
         const token = bearerToken.split(' ')[1];
         const decodedToken = yield (0, exports.checkTokenIsValid)(token);
-        res.locals.user_id = decodedToken.user_id;
+        res.locals.user_id = decodedToken.id;
         next();
     }
     catch (err) {

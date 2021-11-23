@@ -26,16 +26,20 @@ const CampaignsCards: React.FC<IStyledProp> = ({ className }) => {
 
   const [roi, , roiLoading, roiRefresh] = usePromiseRefresh(async () => {
     const data = await campaignService.graphRoi();
+    if (JSON.stringify(data) === '{}') return 'Nenhuma campanha cadastrada';
     return (Number(data) * 100).toFixed(2) + '%';
   }, []);
 
   const [investment, , investmentLoading, investmentRefresh] = usePromiseRefresh(async () => {
     const data = await campaignService.graphInvestment();
+    //console.log(data);
+    if (JSON.stringify(data) === '{}') return 'Nenhuma campanha cadastrada';
     return formatMoney(data);
   }, []);
 
   const [revenues, , revenuesLoading, revenuesRefresh] = usePromiseRefresh(async () => {
     const data = await campaignService.graphRevenues();
+    if (JSON.stringify(data) === '{}') return 'Nenhuma campanha cadastrada';
     return formatMoney(data);
   }, []);
 

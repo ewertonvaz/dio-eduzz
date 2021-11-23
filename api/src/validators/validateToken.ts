@@ -19,7 +19,7 @@ export const validateToken = async (req: Request, res: Response, next: NextFunct
         }
         const token: string = bearerToken.split(' ')[1];
         const decodedToken = await checkTokenIsValid(token);
-        res.locals.user_id = decodedToken.user_id;
+        res.locals.user_id = decodedToken.id;
         next();
     } catch (err) {
         next(err);
