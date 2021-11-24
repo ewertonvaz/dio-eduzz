@@ -22,6 +22,7 @@ export class ApiService {
   }
 
   public delete<T = any>(url: string, params?: any): Promise<T> {
+    console.log(params);
     return this.request<T>('DELETE', url, params);
   }
 
@@ -49,7 +50,7 @@ export class ApiService {
               'Content-Type': data instanceof FormData ? 'multipart/form-data' : 'application/json'
             },
             params: method === 'GET' ? apiRequestFormatter(data) : null,
-            data: method === 'POST' || method === 'PUT' ? apiRequestFormatter(data) : null,
+            data: method === 'POST' || method === 'PUT' || method === 'DELETE' ? apiRequestFormatter(data) : null,
             onUploadProgress: (progress: ProgressEvent) => {
               onProgress && onProgress((progress.loaded / progress.total) * 100);
             }

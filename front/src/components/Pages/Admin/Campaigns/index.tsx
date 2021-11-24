@@ -22,6 +22,8 @@ const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
   const [formOpened, setFormOpened] = useState(false);
   const [current, setCurrent] = useState<ICampaign>();
 
+  console.log(current);
+
   const { params, isLoading, total, refresh, result, error, handleSort, handleChangePage, handleChangePerPage } =
     usePromisePaginated(
       {

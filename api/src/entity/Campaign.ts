@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import Source from "./Source";
 import { User } from "./User";
 
@@ -31,7 +31,8 @@ export class Campaign extends BaseEntity {
     @Column({ name: "end_date" })
     endDate: Date;
 
-    @ManyToOne(type => Source)
+    @ManyToOne(type => Source) 
+    //@OneToOne(type => Source)
     @JoinColumn({ name: "source_id" })
     source: Source;
 

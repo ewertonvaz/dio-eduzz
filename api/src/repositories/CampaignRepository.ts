@@ -11,10 +11,12 @@ export class CampaignRepository extends Repository<Campaign>{
         const queryBuilder: SelectQueryBuilder<Campaign> = this.createQueryBuilder();
         const all: Campaign[] = await queryBuilder
             .select()
+            //.leftJoinAndSelect(Source, "source_name")
             .take(filter.perPage)
             .skip((filter.page-1)*filter.perPage)
             .orderBy(filter.sort.field, filter.sort.direction)
             .where({ user_id: userId })
+            //.printSql()
             .getMany();
         return all;
     }
