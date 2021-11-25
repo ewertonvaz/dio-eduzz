@@ -17,8 +17,10 @@ services:
       MYSQL_ROOT_PASSWORD: example
 
   node-server:
+    container_name: node
     depends_on:
       - mysql
+      - rabbitmq
     image: node
     restart: always
     user: "node"

@@ -31,8 +31,8 @@ export class Campaign extends BaseEntity {
     @Column({ name: "end_date" })
     endDate: Date;
 
+    //@OneToOne(type => Source) 
     @ManyToOne(type => Source) 
-    //@OneToOne(type => Source)
     @JoinColumn({ name: "source_id" })
     source: Source;
 

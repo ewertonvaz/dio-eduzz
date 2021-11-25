@@ -23,12 +23,11 @@ let CampaignRepository = class CampaignRepository extends typeorm_1.Repository {
     constructor() {
         super(...arguments);
         this.listCampaigns = (userId, filter) => __awaiter(this, void 0, void 0, function* () {
-            const queryBuilder = this.createQueryBuilder();
+            const queryBuilder = this.createQueryBuilder("cmp");
             const all = yield queryBuilder
-                .select()
+                .innerJoinAndSelect("cmp.source", "src")
                 .take(filter.perPage)
                 .skip((filter.page - 1) * filter.perPage)
-                .orderBy(filter.sort.field, filter.sort.direction)
                 .where({ user_id: userId })
                 .getMany();
             return all;

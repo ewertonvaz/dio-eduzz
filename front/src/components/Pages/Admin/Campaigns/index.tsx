@@ -114,9 +114,10 @@ const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
         <Table.Body>
           {!error && <Table.Empty count={total} />}
           <Table.Error error={error} />
-          {result.map((data, index) => (
-            <ListItem key={data.id} data={data} index={index} onEdit={handleEdit} />
-          ))}
+          {result.map((data, index) => {
+            const resData = { ...data, source: data.source['name'] }; //Ao accessar a propriedade name como um array contorna-se o type check estrito
+            return <ListItem key={data.id} data={resData} index={index} onEdit={handleEdit} />;
+          })}
         </Table.Body>
         <Table.Pagination
           total={total}

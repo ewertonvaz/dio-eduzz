@@ -8,15 +8,14 @@ import {Source} from '../entity/Source';
 export class CampaignRepository extends Repository<Campaign>{
 
     public listCampaigns = async (userId: number, filter: Partial<IPaginationFilter>): Promise<Campaign[]> => {
-        const queryBuilder: SelectQueryBuilder<Campaign> = this.createQueryBuilder();
+        const queryBuilder: SelectQueryBuilder<Campaign> = this.createQueryBuilder("cmp");
         const all: Campaign[] = await queryBuilder
-            .select()
-            //.leftJoinAndSelect(Source, "source_name")
+            .innerJoinAndSelect("cmp.source", "src")
+            //.select(['cmp.*', 'src.name'])
             .take(filter.perPage)
             .skip((filter.page-1)*filter.perPage)
-            .orderBy(filter.sort.field, filter.sort.direction)
+            //.orderBy(filter.sort.field, filter.sort.direction)
             .where({ user_id: userId })
-            //.printSql()
             .getMany();
         return all;
     }

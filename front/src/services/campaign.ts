@@ -10,8 +10,7 @@ export class CampaignService {
   }
 
   public delete(id: number): Promise<IPaginationResponse<ICampaign>> {
-    //return apiService.delete('/campaign', { id });
-    return apiService.delete(`/campaign/${id}`);
+    return apiService.delete('/campaigns', { id });
   }
 
   public graphRoi(): Promise<number> {

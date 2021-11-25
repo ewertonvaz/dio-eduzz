@@ -46,7 +46,6 @@ const CampaignForm: React.FC<IProps> = ({ opened, data, onComplete, onCancel, cl
       }),
     async onSubmit(model) {
       const result = await campaignService.save(model);
-      console.log(model);
       Toast.success(`A campanha ${result.name} foi salva com sucesso.`);
       onComplete(result);
     }
