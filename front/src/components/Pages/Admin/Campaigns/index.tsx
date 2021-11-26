@@ -47,6 +47,7 @@ const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
     card_roi.click();
     card_investment.click();
     card_revenue.click();
+    setDeleted(false);
   }, [result, hasDeleted]);
 
   const formCallback = useCallback(() => {
