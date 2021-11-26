@@ -22,8 +22,6 @@ const CampaignsCards: React.FC<IStyledProp> = ({ className }) => {
     return null;
   }
 
-  //console.log(user);
-
   const [roi, , roiLoading, roiRefresh] = usePromiseRefresh(async () => {
     const data = await campaignService.graphRoi();
     if (JSON.stringify(data) === '{}') return 'Nenhuma campanha cadastrada';
@@ -32,7 +30,6 @@ const CampaignsCards: React.FC<IStyledProp> = ({ className }) => {
 
   const [investment, , investmentLoading, investmentRefresh] = usePromiseRefresh(async () => {
     const data = await campaignService.graphInvestment();
-    //console.log(data);
     if (JSON.stringify(data) === '{}') return 'Nenhuma campanha cadastrada';
     return formatMoney(data);
   }, []);
@@ -47,6 +44,7 @@ const CampaignsCards: React.FC<IStyledProp> = ({ className }) => {
     if (user.email_validated) {
       return (
         <Card
+          id='card_revenue'
           title='Valor total faturado'
           value={revenues}
           loading={revenuesLoading}
@@ -63,6 +61,7 @@ const CampaignsCards: React.FC<IStyledProp> = ({ className }) => {
     if (user.email_validated) {
       return (
         <Card
+          id='card_investment'
           title='Valor total investido'
           value={investment}
           loading={investmentLoading}
@@ -79,6 +78,7 @@ const CampaignsCards: React.FC<IStyledProp> = ({ className }) => {
       <Grid.Row>
         <Grid.Column xs={12} md={4}>
           <Card
+            id='card_roi'
             title='média de roi das campanhas'
             value={roi}
             loading={roiLoading}

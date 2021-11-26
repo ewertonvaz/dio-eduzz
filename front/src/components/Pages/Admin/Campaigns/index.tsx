@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 
 /* import { Link } from 'react-router-dom'; */
 
@@ -21,8 +21,7 @@ import campaignService from '@/services/campaign';
 const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
   const [formOpened, setFormOpened] = useState(false);
   const [current, setCurrent] = useState<ICampaign>();
-
-  console.log(current);
+  const [hasDeleted, setDeleted] = useState(false);
 
   const { params, isLoading, total, refresh, result, error, handleSort, handleChangePage, handleChangePerPage } =
     usePromisePaginated(
@@ -37,6 +36,19 @@ const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
       []
     );
 
+  useEffect(() => {
+    console.log('render...');
+    const card_roi = document.getElementById('card_roi');
+    const card_investment = document.getElementById('card_investment');
+    const card_revenue = document.getElementById('card_revenue');
+    if (!card_roi || !card_investment || !card_revenue) {
+      return;
+    }
+    card_roi.click();
+    card_investment.click();
+    card_revenue.click();
+  }, [result, hasDeleted]);
+
   const formCallback = useCallback(() => {
     setFormOpened(false);
     refresh();
@@ -47,6 +59,10 @@ const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
   const handleCreate = useCallback(() => {
     setFormOpened(true);
     setCurrent(null);
+  }, []);
+
+  const handleDelete = useCallback(() => {
+    setDeleted(true);
   }, []);
 
   const handleEdit = useCallback((current: ICampaign) => {
@@ -116,7 +132,15 @@ const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
           <Table.Error error={error} />
           {result.map((data, index) => {
             const resData = { ...data, source: data.source['name'] }; //Ao accessar a propriedade name como um array contorna-se o type check estrito
-            return <ListItem key={data.id} data={resData} index={index} onEdit={handleEdit} />;
+            return (
+              <ListItem
+                key={data.id}
+                data={resData}
+                index={index}
+                onEdit={handleEdit}
+                onDeleteComplete={handleDelete}
+              />
+            );
           })}
         </Table.Body>
         <Table.Pagination

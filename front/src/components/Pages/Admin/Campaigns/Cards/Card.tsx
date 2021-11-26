@@ -6,6 +6,7 @@ import styled, { IStyledProp } from '@eduzz/houston-ui/styles/styled';
 import Typography from '@eduzz/houston-ui/Typography';
 
 interface IProps extends IStyledProp {
+  id?: string;
   title: string;
   value: string;
   colored?: boolean;
@@ -14,11 +15,11 @@ interface IProps extends IStyledProp {
   onClick?: () => void;
 }
 
-const Card: React.FC<IProps> = ({ className, title, value, icon, loading, onClick }) => {
+const Card: React.FC<IProps> = ({ id, className, title, value, icon, loading, onClick }) => {
   const Icon = icon;
 
   return (
-    <ButtonBase className={className} onClick={onClick} disabled={!onClick || loading}>
+    <ButtonBase id={id} className={className} onClick={onClick} disabled={!onClick || loading}>
       <div>
         <Typography size='x-small' fontWeight='bold' className='title'>
           {title}

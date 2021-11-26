@@ -27,7 +27,7 @@ interface IProps {
   data: ICampaign;
   index: number;
   onEdit: (data: ICampaign) => void;
-  onDeleteComplete?: () => void;
+  onDeleteComplete?: (value: boolean) => void;
 }
 
 const ListItem = memo((props: IProps) => {
@@ -62,7 +62,8 @@ const ListItem = memo((props: IProps) => {
       await campaignService.delete(data.id);
       setDeleted(true);
       setLoading(false);
-      onDeleteComplete && onDeleteComplete();
+      //onDeleteComplete && onDeleteComplete();
+      onDeleteComplete(true);
     } catch (err) {
       Toast.error(`Não foi possível excluir a campanha ${data.name}.`);
       setDeleted(false);

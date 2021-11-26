@@ -63,8 +63,11 @@ yarn start
 
 Durante o bootcamp, como exercício, fiz algumas alterções no código original para implelemntar o seguinte:
 
-* Validação de email do usuário;
+* Validação de email do usuário.
 * Exibição do nome de usuário logado no front end.
+* Ajuste para realizar a exclusão de campanha.
+* Ajuste para persisitr a fonte da campanha e exibir na List Box o seu nome correto.
+* Atualização automática dos cards após cadastrar uma campanha.
 
 
 
